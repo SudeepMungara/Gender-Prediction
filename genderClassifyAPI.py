@@ -1,4 +1,3 @@
-from sklearn.feature_extraction.text import CountVectorizer
 from fastapi import FastAPI
 from pydantic import BaseModel
 import pickle
@@ -6,6 +5,10 @@ import json
 import re
 import os
 import uvicorn
+import streamlit as st
+import pandas as pd
+import requests
+import time
 
 app = FastAPI()
 
@@ -35,5 +38,18 @@ def gender_pred(input_parameters: model_input):
          gender.append('Male')
     return gender
 
+st.title("Gender Predictor")
+user_input = st.text_input("Please input names (comma-seperated):")
+if st.button('Predict'):
+    input_data = {'Names':[name for name in user_input.split(',')]}
+    response = requests.post('http://0.0.0.0:5000/gender_classifier',json=input_data)
+    if response.status_code == 200:
+        prediction = response.json()
+        input = input_data.get('Names')
+        op = {"Name":input,"Gender":prediction}
+        with st.spinner('Loading Predictions:'):
+            time.sleep(2)
+        st.dataframe(data=pd.DataFrame(op),hide_index=True)
+        
 if __name__ == '__main__':
    uvicorn.run(app,host='0.0.0.0',port=5000,debug=True)

@@ -1,1 +1,1 @@
-web: sh setup.sh && gunicorn -w 4 -k uvicorn.workers.UvicornWorker app:app && streamlit run app.py
+web: sh setup.sh && uvicorn genderClassifyAPI:app --host 0.0.0.0 --port $PORT
