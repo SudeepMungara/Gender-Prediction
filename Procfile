@@ -1,1 +1,1 @@
-web: uvicorn app:app --host 0.0.0.0 --port $PORT && sh setup.sh && streamlit run app.py
+web: gunicorn -w 3 -k uvicorn.workers.UvicornWorker app:app && sh setup.sh && streamlit run app.py
