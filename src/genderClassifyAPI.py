@@ -4,10 +4,11 @@ from pydantic import BaseModel
 import pickle
 import json
 import re
+import os
 import uvicorn
 
 app = FastAPI()
-
+service_url = os.getenv("SERVICE_URL")
 class model_input(BaseModel):
 
     Names:list
@@ -35,4 +36,4 @@ def gender_pred(input_parameters: model_input):
     return gender
 
 if __name__ == '__main__':
-   uvicorn.run(app,host='127.0.0.1',port=5000)
+   uvicorn.run(app,host=service_url)
