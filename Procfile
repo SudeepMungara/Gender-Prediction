@@ -1,1 +1,1 @@
-web: sh setup.sh && uvicorn src/genderClassifyAPI:app && streamlit run app.py
+web: sh setup.sh && streamlit run app.py
