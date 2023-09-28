@@ -1,1 +1,1 @@
-web: sh setup.sh && uvicorn genderClassifyAPI:app --host 0.0.0.0 --port $PORT
+web: sh setup.sh && uvicorn src/genderClassifyAPI:app && streamlit run app.py
