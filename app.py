@@ -9,7 +9,7 @@ st.title("Gender Predictor")
 user_input = st.text_input("Please input names (comma-seperated):")
 if st.button('Predict'):
     input_data = {'Names':[name for name in user_input.split(',')]}
-    response = requests.post('https://gender-classify-heroku-73667d8b09ff.herokuapp.com/',json=input_data,verify=False)
+    response = requests.post('https://gender-classify-heroku-73667d8b09ff.herokuapp.com/gender_classifier/',json=input_data,verify=False)
     if response.status_code == 200:
         prediction = response.json()
         input = input_data.get('Names')
