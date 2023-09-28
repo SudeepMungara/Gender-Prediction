@@ -35,5 +35,5 @@ def gender_pred(input_parameters: model_input):
          gender.append('Male')
     return gender
         
-# if __name__ == '__main__':
-#    uvicorn.run(app,host='127.0.0.1',port=10000)
+if __name__ == '__main__':
+   uvicorn.run(app,host='127.0.0.1',port=5000)
