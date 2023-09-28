@@ -16,8 +16,8 @@ class model_input(BaseModel):
 
     Names:list
 
-gender_classifier_model = pickle.load(open('/pickle/gender_classification_model.pkl','rb'))
-vector = pickle.load(open('/pickle/train_data_vector.pkl','rb'))
+gender_classifier_model = pickle.load(open('./pickle/gender_classification_model.pkl','rb'))
+vector = pickle.load(open('./pickle/train_data_vector.pkl','rb'))
 
 @app.post('/gender_classifier')
 def gender_pred(input_parameters: model_input):
@@ -42,7 +42,7 @@ st.title("Gender Predictor")
 user_input = st.text_input("Please input names (comma-seperated):")
 if st.button('Predict'):
     input_data = {'Names':[name for name in user_input.split(',')]}
-    response = requests.post('http://0.0.0.0:5000/gender_classifier',json=input_data)
+    response = requests.post('http://localhost:5000/gender_classifier',json=input_data)
     if response.status_code == 200:
         prediction = response.json()
         input = input_data.get('Names')
@@ -52,4 +52,4 @@ if st.button('Predict'):
         st.dataframe(data=pd.DataFrame(op),hide_index=True)
         
 if __name__ == '__main__':
-   uvicorn.run(app,host='0.0.0.0',port=5000,debug=True)
+   uvicorn.run(app,host='127.0.0.1',port=5000)
