@@ -8,7 +8,7 @@ import os
 import uvicorn
 
 app = FastAPI()
-service_url = os.getenv("SERVICE_URL")
+
 class model_input(BaseModel):
 
     Names:list
@@ -36,4 +36,4 @@ def gender_pred(input_parameters: model_input):
     return gender
 
 if __name__ == '__main__':
-   uvicorn.run(app,host=service_url)
+   uvicorn.run(app,host='0.0.0.0',port=5000)
